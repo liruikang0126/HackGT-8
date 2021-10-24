@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <link href ="css/style.css" rel="stylesheet"> 
+    <link href="https://unpkg.com/intro.js/minified/introjs.min.css" rel="stylesheet">
+    <script src = "https://unpkg.com/intro.js/minified/intro.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+
+
+ 
+    <script type="text/javascript">
+        function ProcessFile(e) {
+            var file = document.getElementById('file').files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    var txt = event.target.result;
+ 
+                    var img = document.createElement("img");
+                    img.src = txt; 
+                    document.getElementById("result").appendChild(img);                   
+                };
+            }
+            reader.readAsDataURL(file);
+        }
+        function contentLoaded() {
+            document.getElementById('file').addEventListener('change',
+                ProcessFile, false);
+        }
+        window.addEventListener("DOMContentLoaded", contentLoaded, false);
+    </script>
+</head>
+ 
+<body>
+    <div>
+    <button type="button" class="btn btn-primary btn-lg" id="userguide">userguide</button>
+    </div>
+
+    chose file: <input type="file" id="file" name="file" />
+    <div id="result"></div>
+ 
+    <div id="result_new"></div>
+ 
+    <img id="ewmtp" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot" />
+    
+ 
+<div data-step="1" data-intro="click">
+    <button type="button" class="btn btn-primary btn-lg" id="lgbut_compute">submit</button>
+    </div>
+ 
+    <script>
+        function ShowResult(data) {
+            var v = data['img64'];
+            var img = document.createElement("img_new");
+            img.src = "data:image/jpeg;base64, " + v;
+            document.getElementById("result_new").appendChild(img);
+            ewmtp.src = "data:image/jpeg;base64, " + v;
+        }
+    </script>
+    <script>
+        $('#lgbut_compute').click(function () {
+            formdata = new FormData(); 
+            var file = $("#file")[0].files[0];
+            formdata.append("image", file);
+            $.ajax({
+                url: '/recognition/', 
+                type: 'POST', 
+                data: formdata,
+                dataType: 'json', 
+                processData: false,
+                contentType: false,
+                success: ShowResult
+            })
+        })
+    </script>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.7.2/jquery.min.js"></script> 
+    <script src="https://unpkg.com/intro.js"></script>
+    
+    <script>
+        $('#userguide').click(function() {
+                introJs().setOptions({
+                    nextLabel: 'next $rarr;',
+                    prevLabel: '$larr; previous',
+                    skipLabel: 'exit',
+                    doneLabel:'done'
+                }).start();
+            });
+        
+    </script>
+</body>
+</html>

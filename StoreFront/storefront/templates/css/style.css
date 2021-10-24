@@ -1,0 +1,32 @@
+.listItem {
+    color: #9e9e9e;
+    font-size: 30px;
+    font-family: Sans-serif;
+}
+
+.alphNote {
+    color: #838383;
+    font-size: 20px;
+    font-family: Sans-serif;
+    padding-top: 10px;
+}
+
+#list {
+    border-style:none;
+    width: 22%;
+    position: absolute;
+    top: 50px;
+    left: 20px;
+    max-height:90%;
+    overflow: auto;
+
+}
+
+#container {
+    position: absolute;
+    top: 20px;
+    left: 25%;
+    width: 65%;
+    border-style:none;
+    max-height:90%;
+}
